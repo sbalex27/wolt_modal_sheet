@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wolt_state_management/wolt_state_management.dart';
 
@@ -295,8 +297,10 @@ void main() {
           final exception = Exception('An error occurred');
 
           // Act
-          final errorState =
-              idleState.setError(error: exception, retainValue: true);
+          final errorState = idleState.setError(
+            error: exception,
+            retainValue: true,
+          );
 
           // Assert
           expect(errorState, isA<ErrorValueState<int>>());
@@ -321,8 +325,10 @@ void main() {
 
       test('setIdle transitions to IdleValueState with null value', () {
         // Arrange
-        final errorState =
-            ValueState<int>.error(error: Exception('Error'), value: 42);
+        final errorState = ValueState<int>.error(
+          error: Exception('Error'),
+          value: 42,
+        );
 
         // Act
         final idleState = errorState.setIdle();
@@ -372,37 +378,31 @@ void main() {
     });
 
     group('Error Handling', () {
-      test(
-        'should throw assertion error when both retainValue and value are provided in setLoading',
-        () {
-          // Arrange
-          final idleState = ValueState<int>.idle(value: 42);
+      test('should throw assertion error when both retainValue and value are provided in setLoading', () {
+        // Arrange
+        final idleState = ValueState<int>.idle(value: 42);
 
-          // Act & Assert
-          expect(
-            () => idleState.setLoading(retainValue: true, value: 100),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
+        // Act & Assert
+        expect(
+          () => idleState.setLoading(retainValue: true, value: 100),
+          throwsA(isA<AssertionError>()),
+        );
+      });
 
-      test(
-        'should throw assertion error when both retainValue and value are provided in setError',
-        () {
-          // Arrange
-          final idleState = ValueState<int>.idle(value: 42);
+      test('should throw assertion error when both retainValue and value are provided in setError', () {
+        // Arrange
+        final idleState = ValueState<int>.idle(value: 42);
 
-          // Act & Assert
-          expect(
-            () => idleState.setError(
-              error: Exception('Error'),
-              retainValue: true,
-              value: 100,
-            ),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
+        // Act & Assert
+        expect(
+          () => idleState.setError(
+            error: Exception('Error'),
+            retainValue: true,
+            value: 100,
+          ),
+          throwsA(isA<AssertionError>()),
+        );
+      });
     });
 
     group('ValueState with Nullable Types', () {

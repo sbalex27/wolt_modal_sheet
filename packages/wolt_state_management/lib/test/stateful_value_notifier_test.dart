@@ -1,4 +1,4 @@
-// ignore_for_file: cascade_invocations
+// ignore_for_file: cascade_invocations, depend_on_referenced_packages
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wolt_state_management/wolt_state_management.dart';
@@ -24,20 +24,17 @@ void main() {
         },
       );
 
-      test(
-        'should initialize with IdleValueState with null when no initial value is provided',
-        () {
-          // Act
-          final notifier = StatefulValueNotifier<int>.idle();
+      test('should initialize with IdleValueState with null when no initial value is provided', () {
+        // Act
+        final notifier = StatefulValueNotifier<int>.idle();
 
-          // Assert
-          expect(notifier.value, isA<IdleValueState<int>>());
-          expect(notifier.currentValue, isNull);
-          expect(notifier.isIdle, isTrue);
-          expect(notifier.isLoading, isFalse);
-          expect(notifier.isError, isFalse);
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<IdleValueState<int>>());
+        expect(notifier.currentValue, isNull);
+        expect(notifier.isIdle, isTrue);
+        expect(notifier.isLoading, isFalse);
+        expect(notifier.isError, isFalse);
+      });
     });
 
     group('setIdle', () {
@@ -88,19 +85,16 @@ void main() {
         },
       );
 
-      test(
-        'should throw assertion error when both retainValue and value are provided',
-        () {
-          // Arrange
-          final notifier = StatefulValueNotifier<int>.idle(42);
+      test('should throw assertion error when both retainValue and value are provided', () {
+        // Arrange
+        final notifier = StatefulValueNotifier<int>.idle(42);
 
-          // Act & Assert
-          expect(
-            () => notifier.setLoading(retainValue: true, value: 100),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
+        // Act & Assert
+        expect(
+          () => notifier.setLoading(retainValue: true, value: 100),
+          throwsA(isA<AssertionError>()),
+        );
+      });
     });
 
     group('setError', () {
@@ -137,21 +131,17 @@ void main() {
         expect((notifier.value as ErrorValueState<int>).error, equals(error));
       });
 
-      test(
-        'should throw assertion error when both retainValue and value are provided',
-        () {
-          // Arrange
-          final notifier = StatefulValueNotifier<int>.idle(42);
-          final error = Exception('An error occurred');
+      test('should throw assertion error when both retainValue and value are provided', () {
+        // Arrange
+        final notifier = StatefulValueNotifier<int>.idle(42);
+        final error = Exception('An error occurred');
 
-          // Act & Assert
-          expect(
-            () =>
-                notifier.setError(error: error, retainValue: true, value: 100),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
+        // Act & Assert
+        expect(
+          () => notifier.setError(error: error, retainValue: true, value: 100),
+          throwsA(isA<AssertionError>()),
+        );
+      });
     });
 
     group('Accessors', () {
@@ -226,7 +216,6 @@ void main() {
           ..addListener(() {
             notificationCount++;
           })
-
           // Act
           ..value = notifier.value; // Setting the same value
 
@@ -235,111 +224,92 @@ void main() {
     });
 
     group('Factory Constructors', () {
-      test(
-        'should initialize with IdleValueState when using idle factory constructor with initial value',
-        () {
-          // Arrange
-          const initialValue = 42;
+      test('should initialize with IdleValueState when using idle factory constructor with initial value', () {
+        // Arrange
+        const initialValue = 42;
 
-          // Act
-          final notifier = StatefulValueNotifier<int>.idle(initialValue);
+        // Act
+        final notifier = StatefulValueNotifier<int>.idle(initialValue);
 
-          // Assert
-          expect(notifier.value, isA<IdleValueState<int>>());
-          expect(notifier.currentValue, equals(initialValue));
-          expect(notifier.isIdle, isTrue);
-          expect(notifier.isLoading, isFalse);
-          expect(notifier.isError, isFalse);
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<IdleValueState<int>>());
+        expect(notifier.currentValue, equals(initialValue));
+        expect(notifier.isIdle, isTrue);
+        expect(notifier.isLoading, isFalse);
+        expect(notifier.isError, isFalse);
+      });
 
-      test(
-        'should initialize with IdleValueState when using idle factory constructor without initial value',
-        () {
-          // Act
-          final notifier = StatefulValueNotifier<int>.idle();
+      test('should initialize with IdleValueState when using idle factory constructor without initial value', () {
+        // Act
+        final notifier = StatefulValueNotifier<int>.idle();
 
-          // Assert
-          expect(notifier.value, isA<IdleValueState<int>>());
-          expect(notifier.currentValue, isNull);
-          expect(notifier.isIdle, isTrue);
-          expect(notifier.isLoading, isFalse);
-          expect(notifier.isError, isFalse);
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<IdleValueState<int>>());
+        expect(notifier.currentValue, isNull);
+        expect(notifier.isIdle, isTrue);
+        expect(notifier.isLoading, isFalse);
+        expect(notifier.isError, isFalse);
+      });
 
-      test(
-        'should initialize with LoadingValueState when using loading factory constructor with initial value',
-        () {
-          // Arrange
-          const initialValue = 42;
+      test('should initialize with LoadingValueState when using loading factory constructor with initial value', () {
+        // Arrange
+        const initialValue = 42;
 
-          // Act
-          final notifier = StatefulValueNotifier<int>.loading(initialValue);
+        // Act
+        final notifier = StatefulValueNotifier<int>.loading(initialValue);
 
-          // Assert
-          expect(notifier.value, isA<LoadingValueState<int>>());
-          expect(notifier.currentValue, equals(initialValue));
-          expect(notifier.isIdle, isFalse);
-          expect(notifier.isLoading, isTrue);
-          expect(notifier.isError, isFalse);
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<LoadingValueState<int>>());
+        expect(notifier.currentValue, equals(initialValue));
+        expect(notifier.isIdle, isFalse);
+        expect(notifier.isLoading, isTrue);
+        expect(notifier.isError, isFalse);
+      });
 
-      test(
-        'should initialize with LoadingValueState when using loading factory constructor without initial value',
-        () {
-          // Act
-          final notifier = StatefulValueNotifier<int>.loading();
+      test('should initialize with LoadingValueState when using loading factory constructor without initial value', () {
+        // Act
+        final notifier = StatefulValueNotifier<int>.loading();
 
-          // Assert
-          expect(notifier.value, isA<LoadingValueState<int>>());
-          expect(notifier.currentValue, isNull);
-          expect(notifier.isIdle, isFalse);
-          expect(notifier.isLoading, isTrue);
-          expect(notifier.isError, isFalse);
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<LoadingValueState<int>>());
+        expect(notifier.currentValue, isNull);
+        expect(notifier.isIdle, isFalse);
+        expect(notifier.isLoading, isTrue);
+        expect(notifier.isError, isFalse);
+      });
 
-      test(
-        'should initialize with ErrorValueState when using error factory constructor with initial value',
-        () {
-          // Arrange
-          const initialValue = 42;
-          final error = Exception('Test Error');
+      test('should initialize with ErrorValueState when using error factory constructor with initial value', () {
+        // Arrange
+        const initialValue = 42;
+        final error = Exception('Test Error');
 
-          // Act
-          final notifier =
-              StatefulValueNotifier<int>.error(error, initialValue);
+        // Act
+        final notifier = StatefulValueNotifier<int>.error(error, initialValue);
 
-          // Assert
-          expect(notifier.value, isA<ErrorValueState<int>>());
-          expect(notifier.currentValue, equals(initialValue));
-          expect(notifier.isIdle, isFalse);
-          expect(notifier.isLoading, isFalse);
-          expect(notifier.isError, isTrue);
-          expect((notifier.value as ErrorValueState<int>).error, equals(error));
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<ErrorValueState<int>>());
+        expect(notifier.currentValue, equals(initialValue));
+        expect(notifier.isIdle, isFalse);
+        expect(notifier.isLoading, isFalse);
+        expect(notifier.isError, isTrue);
+        expect((notifier.value as ErrorValueState<int>).error, equals(error));
+      });
 
-      test(
-        'should initialize with ErrorValueState when using error factory constructor without initial value',
-        () {
-          // Arrange
-          final error = Exception('Test Error');
+      test('should initialize with ErrorValueState when using error factory constructor without initial value', () {
+        // Arrange
+        final error = Exception('Test Error');
 
-          // Act
-          final notifier = StatefulValueNotifier<int>.error(error);
+        // Act
+        final notifier = StatefulValueNotifier<int>.error(error);
 
-          // Assert
-          expect(notifier.value, isA<ErrorValueState<int>>());
-          expect(notifier.currentValue, isNull);
-          expect(notifier.isIdle, isFalse);
-          expect(notifier.isLoading, isFalse);
-          expect(notifier.isError, isTrue);
-          expect((notifier.value as ErrorValueState<int>).error, equals(error));
-        },
-      );
+        // Assert
+        expect(notifier.value, isA<ErrorValueState<int>>());
+        expect(notifier.currentValue, isNull);
+        expect(notifier.isIdle, isFalse);
+        expect(notifier.isLoading, isFalse);
+        expect(notifier.isError, isTrue);
+        expect((notifier.value as ErrorValueState<int>).error, equals(error));
+      });
     });
   });
 }

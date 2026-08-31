@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart';
+// The public named parameters intentionally initialize private backing fields.
+// ignore_for_file: prefer_initializing_formals
+
+import 'package:material_ui/material_ui.dart';
 import 'package:wolt_modal_sheet/src/theme/wolt_modal_sheet_default_theme_data.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:wolt_modal_sheet/src/utils/wolt_modal_type_utils.dart';
@@ -19,13 +22,13 @@ class WoltModalSheetRoute<T> extends PageRoute<T> {
     bool? barrierDismissible,
     AnimationController? transitionAnimationController,
     RouteSettings? settings,
-  })  : _enableDrag = enableDrag,
-        _showDragHandle = showDragHandle,
-        _useSafeArea = useSafeArea ?? true,
-        _transitionAnimationController = transitionAnimationController,
-        _barrierDismissible = barrierDismissible,
-        _modalTypeBuilder = modalTypeBuilder,
-        super(settings: settings);
+  }) : _enableDrag = enableDrag,
+       _showDragHandle = showDragHandle,
+       _useSafeArea = useSafeArea ?? true,
+       _transitionAnimationController = transitionAnimationController,
+       _barrierDismissible = barrierDismissible,
+       _modalTypeBuilder = modalTypeBuilder,
+       super(settings: settings);
 
   /// Applies additional decorations to the modal page content excluding the
   /// barrier. Use [modalDecorator] to apply decorations to the barrier and
