@@ -1,5 +1,5 @@
 import 'package:demo_ui_components/demo_ui_components.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
@@ -22,18 +22,23 @@ class WidgetbookApp extends StatelessWidget {
       appBuilder: (context, child) => MaterialApp.router(
         debugShowCheckedModeBanner: true,
         backButtonDispatcher: RootBackButtonDispatcher(),
-        routerDelegate: SingleChildRouterDelegate(
-          child: child,
-        ),
+        routerDelegate: SingleChildRouterDelegate(child: child),
       ),
       addons: [
-        MaterialThemeAddon(
+        ThemeAddon<ThemeData>(
           themes: [
-            WidgetbookTheme(
-              name: 'Default',
-              data: AppThemeData.themeData(),
-            )
+            WidgetbookTheme(name: 'Default', data: AppThemeData.themeData()),
           ],
+          themeBuilder: (context, theme, child) => Theme(
+            data: theme,
+            child: ColoredBox(
+              color: theme.scaffoldBackgroundColor,
+              child: DefaultTextStyle(
+                style: theme.textTheme.bodyMedium!,
+                child: child,
+              ),
+            ),
+          ),
         ),
         DeviceFrameAddon(
           devices: Devices.all,
@@ -49,9 +54,7 @@ final globalNavKey = GlobalKey<NavigatorState>();
 
 class SingleChildRouterDelegate extends RouterDelegate<int>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
-  SingleChildRouterDelegate({
-    required this.child,
-  });
+  SingleChildRouterDelegate({required this.child});
 
   final Widget child;
 
@@ -65,11 +68,7 @@ class SingleChildRouterDelegate extends RouterDelegate<int>
   Widget build(BuildContext context) {
     return Navigator(
       key: globalNavKey,
-      pages: [
-        MaterialPage(
-          child: child,
-        ),
-      ],
+      pages: [MaterialPage(child: child)],
     );
   }
 }

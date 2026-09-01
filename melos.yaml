@@ -20,3 +20,4 @@ scripts:
     exec: dcm analyze .
   format:
     exec: dart format --set-exit-if-changed .
+sdkPath: .fvm/flutter_sdk

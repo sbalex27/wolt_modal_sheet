@@ -31,13 +31,15 @@ screenshots:
     path: doc/ss_dynamic_pagination.gif
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
-  flutter: ">=3.16.0"
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: ">=3.47.0"
 
 dependencies:
+  material_ui: ^1.1.0
   flutter:
     sdk: flutter
 
+  cupertino_ui: ^1.0.1
 flutter:
   uses-material-design: true
 
